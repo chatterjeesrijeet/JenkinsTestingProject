@@ -12,5 +12,10 @@ pipeline {
         sh 'python test.py'
       }   
     }
+	stage('deploy'){
+	   steps {
+	     sh 'python app.py'  
+	   } 
+	}
   }
 }
