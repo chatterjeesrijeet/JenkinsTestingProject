@@ -1,6 +1,10 @@
 #!/usr/bin/env groovy
 
-pipeline {
+node{
+  // Check out the source code with jenkins spl variable scm
+  stage 'Checkout'
+  checkout scm
+  
     
 	stage('Initialize'){
         def dockerHome = tool 'myDocker'
