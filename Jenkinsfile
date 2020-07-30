@@ -13,7 +13,12 @@ pipeline {
 			 checkout scm
 			}
 		}
-
+        
+		//=========================================Initialize=============================================================
+		stage('Initialize'){
+           def dockerHome = tool 'myDocker'
+              env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
 		//=========================================Build Images ==============================================================
 		
 		stage('build Image') {
