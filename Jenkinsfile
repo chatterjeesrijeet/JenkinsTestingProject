@@ -14,8 +14,8 @@ node{
 		def dockerHome = tool 'myDocker'
 		env.PATH = "${dockerHome}/bin:${env.PATH}"
 	   }
-
-  
+	   
+	
 	 //  stages {
 		
 	//=========================================Start=============================================================
@@ -26,6 +26,12 @@ node{
 	//	 checkout scm
 	//	}
 	//}
+	
+	stage('build ') {
+	        
+			sh 'pip install -r requirements.txt'
+		}	
+		
 	stage('Docker Image') {
 			sh 'docker build -t personal-python-test .'
 		}
@@ -39,14 +45,11 @@ node{
 	
     stage('test') {
 	        sh 'pwd'
-			sh 'C:/Users/SrijeetChatterjee/AppData/Local/Programs/Python/Python37-32/python ./test.py'
+			sh 'python ./test.py'
 		}
 		
 		
-	stage('build ') {
-	        
-			sh 'C:/Users/SrijeetChatterjee/AppData/Local/Programs/Python/Python37-32/Scripts/pip install -r requirements.txt'
-		}	
+	
     
 	
 		
