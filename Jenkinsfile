@@ -19,14 +19,14 @@ pipeline {
 		stage('build Image') {
 		  steps {
 			sh 'pip install -r requirements.txt'
-			sh 'sudo docker build -t personal-python-test .'
+			sh 'docker build -t personal-python-test .'
 		  }
 		}
 		
 		//=========================================Run Image / Create Container ==============================================================
 		stage('Run Image / Container Creation') {
 		  steps {
-			sh 'sudo docker run -d --name myfirstcontainer personal-python-test'
+			sh 'docker run -d --name myfirstcontainer personal-python-test'
 		  }
 		}
 		
