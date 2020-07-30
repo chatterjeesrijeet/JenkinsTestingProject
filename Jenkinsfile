@@ -1,66 +1,43 @@
 #!/usr/bin/env groovy
 
-properties([[$class: 'ParametersDefinitionProperty', parameterDefinitions: [
-[$class: 'hudson.model.StringParameterDefinition', name: 'NODE_PORT',defaultValue: "9010"] 
- ]]])
-
 pipeline {
-  agent { docker { image 'python:3.8.5-alpine3.12' } }
+   agent { docker { image 'python:3.8.5-alpine3.12' } }
   
-  stages {
-    
-	//=========================================Start=============================================================
-	// Check out the source code with jenkins spl variable scm
-    //stage ('Checkout'){
-	    //steps{
-         //sh 'checkout scm'
-		//}
-	//}
-	//=========================================INIT==============================================================
-    stage("Init"){
-	  steps{
-       echo " WorkSpace : ${WORKSPACE}"
-       env.MS_NAME="pythontest"
-       env.IMAGE_NAME="localhost:5000/${MS_NAME}:latest"
-	  }
-    }
-    //=========================================Build/Install==============================================================
-    stage('build') {
-      steps {
-        sh 'pip install -r requirements.txt'
-      }
-    }
-	//=========================================Test==============================================================
-    stage('test') {
-      steps {
-        sh 'cd ${WORKSPACE}/src && python ./test.py'
-      }   
-    }
-	//=========================================Build Artifact==============================================================
-	stage ("Build Artifact"){
-      sh '''
-          docker build -t ${IMAGE_NAME} -f ${WORKSPACE}/Dockerfile .
+	   stages {
+		
+		//=========================================Start=============================================================
+		
+		/* cloning the repository to our workspace */
+		stage ('Clone Repository'){
+			steps{
+			 checkout scm
+			}
+		}
 
-          if [ "$(docker ${DOCKER_OPTS} ps -qa -f name=${MS_NAME})" ]; then
-              echo " Found docker container "
-               if [ "$(docker ${DOCKER_OPTS} ps -q -f name=${MS_NAME})" ]; then
-                          echo " Stop the container "
-                         docker ${DOCKER_OPTS} stop ${MS_NAME}
-               fi
-            docker ${DOCKER_OPTS} rm ${MS_NAME}
-          fi
-           echo " Starting the container "
-           docker ${DOCKER_OPTS} container run -d --name=${MS_NAME} -p ${NODE_PORT}:5001 ${IMAGE_NAME}
-         '''
-    }
-  
-	//=========================================Deploy==============================================================
-	//stage('deploy'){
-	  // steps {
-	    // sh 'python app.py'  
-	   //} 
-	//}
-	//=========================================End==============================================================
-	
-  }
+		//=========================================Build Images ==============================================================
+		
+		stage('build Image') {
+		  steps {
+			sh 'pip install -r requirements.txt'
+			sh 'docker build -t personal-python-test .'
+		  }
+		}
+		
+		//=========================================Run Image / Create Container ==============================================================
+		stage('Run Image / Container Creation') {
+		  steps {
+			sh 'docker run -d --name myfirstcontainer personal-python-test'
+		  }
+		}
+		
+		//=========================================Test==============================================================
+		stage('test') {
+		  steps {
+			sh 'python ./test.py'
+		  }   
+		}
+			
+		//=========================================End==============================================================
+		
+	  }
 }
