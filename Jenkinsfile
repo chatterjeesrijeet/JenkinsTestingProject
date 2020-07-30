@@ -9,8 +9,7 @@ node{
 	stage('Initialize'){
 		def dockerHome = tool 'myDocker'
 		env.PATH = "${dockerHome}/bin:${env.PATH}"
-		//env.PATH="${PATH}:/usr/local/bin"
-		setenv PATH "${PATH}:/usr/local/bin"
+		env.PATH="${PATH}:/usr/local/bin"
 	   }
 
     //agent { docker { image 'python:3.8.5-alpine3.12' } }
@@ -35,7 +34,12 @@ node{
 		}
 		
 	//=========================================Initialize=============================================================
-	   	
+	
+    stage('test') {
+			sh 'python ./test.py'
+		}
+		
+		
 	stage('build ') {
 			sh '/usr/local/bin/pip install -r requirements.txt'
 		}	
@@ -46,15 +50,6 @@ node{
 		
 		
 		//=========================================Test==============================================================
-		stage('test') {
-			sh 'python ./test.py'
-		}
-		
-		
-		//=========================================Run Image / Create Container ==============================================================
-		stage('Run Image / Container Creation') {
-			sh 'docker run -d --name myfirstcontainer personal-python-test'
-		}
 		
 		
 			
