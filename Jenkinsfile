@@ -12,7 +12,7 @@ node{
 		env.PATH="${PATH}:/usr/local/bin"
 	   }
 
-   //agent { docker { image 'python:3.8.5-alpine3.12' } }
+   agent { docker { image 'python:3.8.5-alpine3.12' } }
   
 	 //  stages {
 		
