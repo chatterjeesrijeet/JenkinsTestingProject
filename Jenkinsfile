@@ -7,38 +7,37 @@ node{
   
     
 	stage('Initialize'){
-        def dockerHome = tool 'myDocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
-       }
-   
+		def dockerHome = tool 'myDocker'
+		env.PATH = "${dockerHome}/bin:${env.PATH}"
+	   }
+
    //agent { docker { image 'python:3.8.5-alpine3.12' } }
   
 	 //  stages {
 		
-		//=========================================Start=============================================================
-		
-		/* cloning the repository to our workspace */
-		//stage ('Clone Repository'){
-		//	steps{
-		//	 checkout scm
-		//	}
-		//}
-        
-		
-   
-   
-		
-		//=========================================Initialize=============================================================
+	//=========================================Start=============================================================
+	
+	/* cloning the repository to our workspace */
+	//stage ('Clone Repository'){
+	//	steps{
+	//	 checkout scm
+	//	}
+	//}
+	
+	//=========================================Initialize=============================================================
 	   	
-		
-
-		//=========================================Build Images ==============================================================
-		
-		stage('build Image') {
-		  steps {
+	stage('build ') {
 			sh 'pip install -r requirements.txt'
+		}	
+    
+	stage('Docker Image') {
 			sh 'docker build -t personal-python-test .'
-		  }
+		}
+		
+	//=========================================Build Images ==============================================================
+		
+		stage('Docker Image') {
+			sh 'docker build -t personal-python-test .'
 		}
 		
 		//=========================================Test==============================================================
@@ -49,9 +48,7 @@ node{
 		
 		//=========================================Run Image / Create Container ==============================================================
 		stage('Run Image / Container Creation') {
-		  steps {
 			sh 'docker run -d --name myfirstcontainer personal-python-test'
-		  }
 		}
 		
 		
