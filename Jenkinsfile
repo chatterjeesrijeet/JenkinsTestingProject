@@ -11,9 +11,11 @@ pipeline {
     
 	//=========================================Start=============================================================
 	// Check out the source code with jenkins spl variable scm
-    stage ('Checkout'){
-        sh 'checkout scm'
-	}
+    //stage ('Checkout'){
+	    //steps{
+         //sh 'checkout scm'
+		//}
+	//}
 	//=========================================INIT==============================================================
 	stage("Init"){
        echo " WorkSpace : ${WORKSPACE}"
