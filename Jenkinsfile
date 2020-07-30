@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-	agent { docker { image 'python:3.8.5-alpine3.12' } }
+	//agent { docker { image 'python:3.8.5-alpine3.12' } }
 
 	
 node{
