@@ -36,12 +36,12 @@ node{
 	//=========================================Initialize=============================================================
 	
     stage('test') {
-			sh 'python ./test.py'
+			sh 'C:/Users/SrijeetChatterjee/AppData/Local/Programs/Python/Python37-32/python ./test.py'
 		}
 		
 		
 	stage('build ') {
-			sh '/usr/local/bin/pip install -r requirements.txt'
+			sh 'C:/Users/SrijeetChatterjee/AppData/Local/Programs/Python/Python37-32/Scripts/pip install -r requirements.txt'
 		}	
     
 	
