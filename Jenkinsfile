@@ -4,15 +4,15 @@ node{
   // Check out the source code with jenkins spl variable scm
   stage 'Checkout'
   checkout scm
-  
+    
+	agent { docker { image 'python:3.8.5-alpine3.12' } }
+
     
 	stage('Initialize'){
 		def dockerHome = tool 'myDocker'
 		env.PATH = "${dockerHome}/bin:${env.PATH}"
-		env.PATH="${PATH}:/usr/local/bin"
 	   }
 
-    //agent { docker { image 'python:3.8.5-alpine3.12' } }
   
 	 //  stages {
 		
