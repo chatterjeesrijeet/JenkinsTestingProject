@@ -36,7 +36,7 @@ node{
 	//=========================================Initialize=============================================================
 	
     stage('test') {
-	        echo pwd
+	        sh 'pwd'
 			sh 'C:/Users/SrijeetChatterjee/AppData/Local/Programs/Python/Python37-32/python ./test.py'
 		}
 		
