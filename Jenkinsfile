@@ -18,11 +18,11 @@ node{
 		//=========================================Start=============================================================
 		
 		/* cloning the repository to our workspace */
-		stage ('Clone Repository'){
-			steps{
-			 checkout scm
-			}
-		}
+		//stage ('Clone Repository'){
+		//	steps{
+		//	 checkout scm
+		//	}
+		//}
         
 		
    
