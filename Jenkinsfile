@@ -22,6 +22,7 @@ pipeline {
 	   	stage('Initialize'){
                 env.PATH = "${dockerHome}/bin:${env.PATH}"
         }
+
 		//=========================================Build Images ==============================================================
 		
 		stage('build Image') {
