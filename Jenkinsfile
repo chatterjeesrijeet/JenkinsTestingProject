@@ -17,10 +17,12 @@ pipeline {
 		//}
 	//}
 	//=========================================INIT==============================================================
-	stage("Init"){
+    stage("Init"){
+	  steps{
        echo " WorkSpace : ${WORKSPACE}"
        env.MS_NAME="pythontest"
        env.IMAGE_NAME="localhost:5000/${MS_NAME}:latest"
+	  }
     }
     //=========================================Build/Install==============================================================
     stage('build') {
