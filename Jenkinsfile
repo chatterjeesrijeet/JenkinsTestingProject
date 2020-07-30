@@ -27,6 +27,11 @@ node{
 	stage('Docker Image') {
 			sh 'docker build -t personal-python-test .'
 		}
+    
+	//=========================================Run Image / Create Container ==============================================================
+		stage('Run Image / Container Creation') {
+			sh 'docker run -d --name myfirstcontainer personal-python-test'
+		}
 		
 	//=========================================Initialize=============================================================
 	   	
@@ -34,15 +39,10 @@ node{
 			sh 'pip install -r requirements.txt'
 		}	
     
-	stage('Docker Image') {
-			sh 'docker build -t personal-python-test .'
-		}
+	
 		
 	//=========================================Build Images ==============================================================
 		
-		stage('Docker Image') {
-			sh 'docker build -t personal-python-test .'
-		}
 		
 		//=========================================Test==============================================================
 		stage('test') {
