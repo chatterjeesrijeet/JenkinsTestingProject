@@ -36,7 +36,7 @@ node{
 	//=========================================Initialize=============================================================
 	   	
 	stage('build ') {
-			sh 'pip install -r requirements.txt'
+			sh '/usr/local/bin/pip install -r requirements.txt'
 		}	
     
 	
