@@ -1,40 +1,43 @@
 #!/usr/bin/env groovy
 pipeline {
  
-  stages {
-    
-	agent { docker { image 'python:3.7.2' } }
+ agent{
+  node {
+      label 'master'
+    }
+	}
 	
+	stages {
+ stage('Initialize'){
+    steps{
+        script{
+		def dockerHome = tool 'myDocker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
+		}
+       }
+	}
+	  
     stage('build') {
+	  agent { docker { image 'python:3.7.2' } }
       steps {
         sh 'pip install -r requirements.txt'
       }
     }
-	
-	
-	
     stage('test') {
+	agent { docker { image 'python:3.7.2' } }
       steps {
         sh 'python test.py'
-      }   
+      }
     }
-	
-  }
-  
-  stage('Initialize'){
-		def dockerHome = tool 'myDocker'
-		env.PATH = "${dockerHome}/bin:${env.PATH}"
-	   }
-	   
   stage('Docker Image') {
-			sh 'docker build -t personal-python-test .'
-		}
-   
-		
+      steps{
+	      sh 'docker build -t personal-python-test .'
+		  }
+        }
   stage('Run Image / Container Creation') {
-			sh 'docker run -d --name myfirstcontainer personal-python-test'
-	}
-		
-	
-  
+        steps{
+		sh 'docker run -d --name myfirstcontainer personal-python-test'
+		}
+    }
+    }
 }
