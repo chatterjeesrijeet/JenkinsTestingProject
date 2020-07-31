@@ -13,10 +13,7 @@ node{
 		env.PATH = "${dockerHome}/bin:${env.PATH}"
 	   }
 	
-	stage('test') {
-	        sh 'pwd'
-			sh 'python ./test.py'
-		}
+	
 		
 	stage('Docker Image') {
 			sh 'docker build -t personal-python-test .'
@@ -29,4 +26,9 @@ node{
 	stage('Run Image / Container Creation') {
 			sh 'docker run -d --name myfirstcontainer personal-python-test'
 	}
+	
+	stage('test') {
+	        sh 'pwd'
+			sh 'python ./test.py'
+		}
 }
