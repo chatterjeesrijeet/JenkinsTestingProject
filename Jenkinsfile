@@ -5,62 +5,28 @@
 	
 node{
   // Check out the source code with jenkins spl variable scm
-  stage 'Checkout'
-  checkout scm
-    
-
+    stage 'Checkout'
+    checkout scm
     
 	stage('Initialize'){
 		def dockerHome = tool 'myDocker'
 		env.PATH = "${dockerHome}/bin:${env.PATH}"
 	   }
-	   
 	
-	 //  stages {
-		
-	//=========================================Start=============================================================
-	
-	/* cloning the repository to our workspace */
-	//stage ('Clone Repository'){
-	//	steps{
-	//	 checkout scm
-	//	}
-	//}
-	
-	stage('build ') {
-	        
-			sh 'pip install -r requirements.txt'
-		}	
+	stage('test') {
+	        sh 'pwd'
+			sh 'python ./test.py'
+		}
 		
 	stage('Docker Image') {
 			sh 'docker build -t personal-python-test .'
 		}
     
-	//=========================================Run Image / Create Container ==============================================================
-		stage('Run Image / Container Creation') {
+	stage('build ') {
+			sh 'pip install -r requirements.txt'
+		}	
+		
+	stage('Run Image / Container Creation') {
 			sh 'docker run -d --name myfirstcontainer personal-python-test'
-		}
-		
-	//=========================================Initialize=============================================================
-	
-    stage('test') {
-	        sh 'pwd'
-			sh 'python ./test.py'
-		}
-		
-		
-	
-    
-	
-		
-	//=========================================Build Images ==============================================================
-		
-		
-		//=========================================Test==============================================================
-		
-		
-			
-		//=========================================End==============================================================
-		
-	//  }
+	}
 }
