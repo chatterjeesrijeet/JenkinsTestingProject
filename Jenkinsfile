@@ -16,11 +16,11 @@ node{
 	
 		
 	stage('Docker Image') {
-			sh 'docker build -t personal-python-test .'
+			docker build -t personal-python-test .
 		}
     
 	stage('build ') {
-			sh 'pip install -r requirements.txt'
+			sh'pip install -r requirements.txt'
 		}	
 		
 	stage('Run Image / Container Creation') {
