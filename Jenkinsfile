@@ -5,17 +5,18 @@ pipeline {
   node {
       label 'master'
     }
-	}
+ }
 	
-	stages {
- stage('Initialize'){
+ stages {
+ 
+  stage('Initialize'){
     steps{
         script{
 		def dockerHome = tool 'myDocker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
 		}
        }
-	}
+  }
 	  
     stage('build') {
 	  agent { docker { image 'python:3.7.2' } }
@@ -26,7 +27,7 @@ pipeline {
     stage('test') {
 	agent { docker { image 'python:3.7.2' } }
       steps {
-        sh 'python test.py'
+        sh 'python ${WORKSPACE}/src/test.py'
       }
     }
   stage('Docker Image') {
