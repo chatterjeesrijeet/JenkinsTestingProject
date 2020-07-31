@@ -16,17 +16,19 @@ node{
 	
 		
 	stage('Docker Image') {
-			docker build -t personal-python-test .
+			sh 'docker build -t personal-python-test .'
 		}
     
-	stage('build ') {
-			sh'pip install -r requirements.txt'
-		}	
+	
 		
 	stage('Run Image / Container Creation') {
 			sh 'docker run -d --name myfirstcontainer personal-python-test'
 	}
 	
+	stage('build ') {
+			sh 'pip install -r requirements.txt'
+		}	
+		
 	stage('test') {
 	        sh 'pwd'
 			sh 'python ./test.py'
